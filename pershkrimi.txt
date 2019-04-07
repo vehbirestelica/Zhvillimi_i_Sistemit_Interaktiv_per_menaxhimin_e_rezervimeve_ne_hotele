@@ -1,0 +1,13 @@
+Pershkrimi i projektit:
+
+Me ane te ketij projekti si qellim kryesore eshte 
+lehtesimi ne funksionalitetin dhe menaxhimin e te dhenave 
+ne lidhje me regjistrimin ne hotele te konsumatoreve duke e 
+bere keshtu sa me te lehte dhe me atraktiv nga ana e konsumatoreve.
+
+Ne kete Aplikacion do mundemi te rezervojme dhoma sipas deshires 
+nga ane te ndryshem te botes duke pasur mundesi te ndryshme nga dhoma te lira,luksoze,familjare,
+qifte,daten e hyrjes-daljes,pagesat,vendodhja e hotelit,nr i antareve e te tjera duke permbushur pyetsore te ndryshem te indentifikimit 
+te personit para rezervimit.
+Si dhe ne faqen kryesore ky aplikacion do paraqet oferta te  ndryshme nga hotelet me te bukura ne bote 
+ku i gjithe procesi i rezervimit do te kryhet.
