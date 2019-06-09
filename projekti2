@@ -1,0 +1,66 @@
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;  
+import javafx.scene.control.*;  
+import javafx.scene.layout.BorderPane;  
+import javafx.stage.Stage;
+import javafx.*;
+import javafx.geometry.*;
+import javafx.scene.layout.*;
+import javafx.event.ActionEvent; 
+import javafx.event.EventHandler; 
+import javafx.collections.*;
+import javafx.scene.text.Text.*; 
+import javafx.scene.paint.*; 
+import javafx.scene.text.*; 
+
+public class Ushtrim extends Application {  
+    public static void main(String[] args) {  
+    launch(args);  
+        } 
+    @Override  
+    public void start(Stage primaryStage) throws Exception {  
+        BorderPane root = new BorderPane();  
+        Scene scene = new Scene(root,750,500);  
+        MenuBar menubar = new MenuBar();  
+        Menu HotelMenu = new Menu("Hotel");
+        Menu ReservationMenu=new Menu("Reservation");   
+        Menu Invoicemenu=new Menu("Invoice");
+        Menu Employeesmenu=new Menu("Employees");
+        TextField lokacioni=new TextField("Lokacioni");
+//        Label uuu=new Label();
+        Button lokbtn=new Button("Kerko ");
+        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() { 
+//            public void handle(ActionEvent e) 
+//            { 
+//                lokbtn.setText("   button   selected    "); 
+//            } 
+//        };
+        ComboBox HotelComboBox=new ComboBox();
+        HotelComboBox.getItems().addAll(
+        		"Hotel Sirius",
+                "Hotel Jaroal",
+                "Hotel LaCorte",
+                "Hotel Luxor",
+                "Hotel Grand",
+                "Hotel Morea",
+                "Hotel Pinocchio",
+                "Hotel SpaRoyal",
+                "Hotel Nartel",
+                "Hotel Coreal");
+        HotelComboBox.setPromptText("Zgjidhni nje Hotel :");
+        HBox hbox = new HBox(HotelComboBox);
+        Scene scene2 = new Scene(hbox, 800,120);
+//        HotelComboBox.setPadding(new Insets(10,10,10,10));
+//        ReservationMenu.getItems().addAll(ReservationMenu1,ReservationMenu2,ReservationMenu3);  
+        root.setTop(menubar);
+        root.setCenter(HotelComboBox);
+        root.setLeft(lokacioni);
+        root.setLeft(lokbtn);
+//       HotelMenu.getItems().addAll(Hotelmenu1,Hotelmenu2,Hotelmenu3);  
+        menubar.getMenus().addAll(HotelMenu,ReservationMenu,Invoicemenu,Employeesmenu);  
+        primaryStage.setScene(scene); 
+        primaryStage.setTitle("Sistemi Interaktiv per Menaxhimin e Rezervimeve ne Hotele");
+        primaryStage.show();  
+          
+    }     
