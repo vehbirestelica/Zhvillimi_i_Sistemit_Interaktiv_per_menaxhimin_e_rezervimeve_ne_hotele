@@ -25,10 +25,11 @@ public class Signup extends Application {
         addUIControls(gridPane);
         // Create a scene with registration form grid pane as the root node
         Scene scene = new Scene(gridPane, 800, 500);
-        // Set the scene in primary stage	
+        // Set the scene in primary stage
         primaryStage.setScene(scene);
-        
+
         primaryStage.show();
+
     }
 
 

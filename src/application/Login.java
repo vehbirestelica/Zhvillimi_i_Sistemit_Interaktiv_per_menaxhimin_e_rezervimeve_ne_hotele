@@ -3,6 +3,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -14,8 +15,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+
+import java.io.IOException;
 import java.sql.*;
 
 public class Login extends Application {
@@ -32,6 +37,7 @@ public class Login extends Application {
 		//setConnection();
 
 		GridPane gridPane = new GridPane();
+		gridPane.setAlignment(Pos.CENTER); //when resized still in the middle :)
 
 		gridPane.setHgap(10);
 		gridPane.setVgap(10);
@@ -45,15 +51,32 @@ public class Login extends Application {
 		gridPane.add(passwordTxt, 2, 3);
 
 		Button logInButton = new Button("Login");
-
+		Button SignUpButton = new Button("Signup");
+		logInButton.setStyle("-fx-background-color: blue;-fx-text-fill: white;");
+		SignUpButton.setStyle("-fx-background-color: blue;-fx-text-fill: white;");
 		gridPane.add(logInButton, 1,4);
-
-		logInButton.setOnAction(e -> {
-			//loginUser();
+		gridPane.add(SignUpButton, 2,4);
+		SignUpButton.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent event) {
+		        Pane pane=new Pane();
+		        Stage stage = new Stage();
+				stage.setTitle("My New Stage Title");
+				stage.setScene(new Scene(pane, 450, 450));
+				stage.show();
+				// Hide this current window (if this is what you want)
+				primaryStage.close();
+		    }
 		});
 
+
+
+
+
 		Image image = new Image("testing.jpg");
-		gridPane.getChildren().add(new ImageView(image));
+		ImageView imageView2 = new ImageView(image);
+		imageView2.setFitHeight(300);
+		imageView2.setFitWidth(400);
+		gridPane.getChildren().add(imageView2);
 
 		Scene scene = new Scene(gridPane);
         primaryStage.setMinHeight(300);
@@ -62,6 +85,7 @@ public class Login extends Application {
 		primaryStage.setScene(scene);
 
 		primaryStage.show();
+
 
 
 
