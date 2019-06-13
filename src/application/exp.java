@@ -46,11 +46,7 @@ import javafx.stage.Window;
   
 
 public class exp extends Application {
-	final Float[] values = new Float[] {-1.0f, 0f, 0.6f, 1.0f};
-	final Label [] labels = new Label[values.length];
-	final ProgressBar[] pbs = new ProgressBar[values.length];
-	final ProgressIndicator[] pins = new ProgressIndicator[values.length];
-	final HBox hbs [] = new HBox [values.length];
+	
  String user = "JavaFX2";
  String pw = "password";
  String checkUser, checkPw;
@@ -63,26 +59,10 @@ public class exp extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("JavaFX Please Login");
         //progres bar
-        Group root = new Group();
-
+        
        
        
  
- 
-        for (int i = 0; i < values.length; i++) {
-            final Label label = labels[i] = new Label();
-            label.setText("progress:" + values[i]);
- 
-            final ProgressBar pb = pbs[i] = new ProgressBar();
-            pb.setProgress(values[i]);
- 
-            final ProgressIndicator pin = pins[i] = new ProgressIndicator();
-            pin.setProgress(values[i]);
-            final HBox hb = hbs[i] = new HBox();
-            hb.setSpacing(5);
-            hb.setAlignment(Pos.CENTER);
-            hb.getChildren().addAll(label, pb, pin);
-        }
  
         
       
@@ -280,11 +260,12 @@ public class exp extends Application {
         bp.setCenter(gridPane);  
         bp.setLeft(hb);
         bp.setBottom(pane);
-        bp.setBottom(root);
+      
          
         //Adding BorderPane to the scene and loading CSS
      Scene scene = new Scene(bp);
-     scene.setRoot(root);
+
+
 
      scene.getStylesheets().add(getClass().getClassLoader().getResource("login.css").toExternalForm());
      primaryStage.setScene(scene);
