@@ -12,7 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView; 
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
 
 public class Reservation extends Application{	
@@ -88,36 +89,39 @@ public class Reservation extends Application{
 //		Label standarti=new Label("Standarti");
 //		gridPane.setValignment(standarti, VPos.BASELINE);
 //		gridPane.add(standarti, 4, 0);
+		
 		RadioButton seaView=new RadioButton("Sea View");
 		RadioButton allInclusive=new RadioButton("All Inclusive");
 		RadioButton economic=new RadioButton("Economic");
 		gridPane.add(seaView, 4, 0);
 		gridPane.add(allInclusive, 4, 1);
 		gridPane.add(economic, 4, 2);
-		Button vazhdo=new Button("Vazhdo...");
-		gridPane.add(vazhdo, 0, 10);
-		vazhdo.setOnAction(e -> {
-			gridPane.add(cardNum, 1, 11);
-			gridPane.add(new Label("Numri i karteles"), 0, 11);
-			cardNum.setPromptText("1234 5678 9012 3456");
-			gridPane.add(new Label("Emri i karteles"), 0, 12);
-			gridPane.add(cardName, 1, 12);
-			cardName.setPromptText("Ex. Vehbi Restelica");
-			gridPane.add(ExpDate, 1, 13);
-			gridPane.add(new Label("Data e skadimit"), 0, 13);
-			ExpDate.setPromptText("01/20");
-			gridPane.add(SecurityCode, 1, 14);
-			gridPane.add(new Label("Kodi i sigurimit"), 0, 14);
-			SecurityCode.setPromptText("•••");
-			Button Paguaj=new Button("Paguaj");
-			gridPane.add(Paguaj, 1, 15);
-			gridPane.setHalignment(Paguaj, HPos.RIGHT);
-			final ImageView imv = new ImageView();
-			final Image image2 = new Image(Main.class.getResourceAsStream("payment.png"));
-			imv.setImage(image2);
-			final HBox pictureRegion = new HBox();
-			pictureRegion.getChildren().add(imv);
-			gridPane.add(pictureRegion, 1, 16);
+		
+//		Button vazhdo=new Button("Vazhdo...");
+//		addMouseScrolling(vazhdo);
+//		gridPane.add(vazhdo, 0, 10);
+//		vazhdo.setOnAction(e -> {
+//			gridPane.add(cardNum, 1, 11);
+//			gridPane.add(new Label("Numri i karteles"), 0, 11);
+//			cardNum.setPromptText("1234 5678 9012 3456");
+//			gridPane.add(new Label("Emri i karteles"), 0, 12);
+//			gridPane.add(cardName, 1, 12);
+//			cardName.setPromptText("Ex. Vehbi Restelica");
+//			gridPane.add(ExpDate, 1, 13);
+//			gridPane.add(new Label("Data e skadimit"), 0, 13);
+//			ExpDate.setPromptText("01/20");
+//			gridPane.add(SecurityCode, 1, 14);
+//			gridPane.add(new Label("Kodi i sigurimit"), 0, 14);
+//			SecurityCode.setPromptText("•••");
+//			Button Paguaj=new Button("Paguaj");
+//			gridPane.add(Paguaj, 1, 15);
+//			gridPane.setHalignment(Paguaj, HPos.RIGHT);
+//			ImageView image=new ImageView("payment.png");
+//			gridPane.getChildren().add(new ImageView());
+//			gridPane.add(image, 3, 10);
+//			
+//		});
+			
 //			Label NrKarteles=new Label("Numri i karteles :");
 //			gridPane.add(NrKarteles, 1, 10);
 //			Label EmriKarteles=new Label("Emri i karteles :");
@@ -126,7 +130,7 @@ public class Reservation extends Application{
 //			gridPane.add(ExpDate, 1, 12);
 //			Label secCode=new Label("Security Code");
 //			gridPane.add(secCode, 2, 12);
-		});
+//		});
 		
 //		Label Pagesa = new Label("Metoda e Pageses :");
 //		RadioButton paypal=new RadioButton("PayPal");
@@ -140,13 +144,13 @@ public class Reservation extends Application{
 //		gridPane.getChildren().add(new ImageView(image));
 		
 		Button rezervoButton=new Button("Rezervo");
-		gridPane.add(rezervoButton, 4, 7);
+		gridPane.add(rezervoButton, 4, 8);
 		
 		rezervoButton.setOnAction(e -> {
 			rezervoUser();
 		});
 		
-		Scene scene = new Scene(gridPane,1000,800);
+		Scene scene = new Scene(gridPane,800,475);
 		
 		primaryStage.setTitle("Rezervimi");
 		primaryStage.setScene(scene);
@@ -154,7 +158,20 @@ public class Reservation extends Application{
 
 
 	}
-	public static class DbConnection {
+	private void addMouseScrolling(Button vazhdo) {
+		   vazhdo.setOnScroll((ScrollEvent event) -> {
+	            // Adjust the zoom factor as per your requirement
+	            double zoomFactor = 1.05;
+	            double deltaY = event.getDeltaY();
+	            if (deltaY < 0){
+	                zoomFactor = 2.0 - zoomFactor;
+	            }
+	            vazhdo.setScaleX(vazhdo.getScaleX() * zoomFactor);
+	            vazhdo.setScaleY(vazhdo.getScaleY() * zoomFactor);
+	        });
+	
+}
+public static class DbConnection {
 		private static Connection dbconnection;
 
 
@@ -173,7 +190,7 @@ public class Reservation extends Application{
 		Application.launch(args);
 	}
 	private static void rezervoUser() {
-		String query = "INSERT INTO rezervimet(emri ,mbiemri , email,tel,shteti,datahyrjes,datadaljes) Values(?,?,?,?,?,?,?)";
+		String query = "INSERT INTO rezervimet(emri ,mbiemri , email,datahyrjes,datadaljes,tel,shteti,dhoma) Values(?,?,?,?,?,?,?,?)";
 		try {
 					PreparedStatement preparedStatement = DbConnection.getConnection().prepareStatement(query);
 					
@@ -183,7 +200,11 @@ public class Reservation extends Application{
 					preparedStatement.setString(4, ((TextField)dataHyrjes.getEditor()).getText());
 					preparedStatement.setString(5, ((TextField)dataDaljes.getEditor()).getText());
 					preparedStatement.setString(6, telnum.getText());
-					preparedStatement.setString(7, ((TextField)Shtetijuaj.getEditor()).getText());     
+					preparedStatement.setString(7, ((TextField)Shtetijuaj.getEditor()).getText()); 
+					preparedStatement.setString(8, dhoma.getText());
+					
+					
+			
 					
 					if(preparedStatement.executeUpdate() > 0) {
 						Alert alert = new Alert(AlertType.INFORMATION);
