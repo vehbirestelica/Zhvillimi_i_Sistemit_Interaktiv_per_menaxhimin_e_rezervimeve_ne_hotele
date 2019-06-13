@@ -17,8 +17,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
@@ -61,9 +65,8 @@ public class Login extends Application {
 		        Pane pane=new Pane();
 		        Stage stage = new Stage();
 				stage.setTitle("My New Stage Title");
-				stage.setScene(new Scene(pane, 450, 450));
+				stage.setScene(new Scene(pane, 450, 450,Color.BEIGE));
 				stage.show();
-				// Hide this current window (if this is what you want)
 				primaryStage.close();
 		    }
 		});
@@ -72,13 +75,13 @@ public class Login extends Application {
 
 
 
-		Image image = new Image("testing.jpg");
-		ImageView imageView2 = new ImageView(image);
-		imageView2.setFitHeight(300);
-		imageView2.setFitWidth(400);
-		gridPane.getChildren().add(imageView2);
+//		Image image = new Image("testing.jpg");
+//		ImageView imageView2 = new ImageView(image);
+//		imageView2.setFitHeight(300);
+//		imageView2.setFitWidth(400);
+//		gridPane.getChildren().add(imageView2);
 
-		Scene scene = new Scene(gridPane);
+		Scene scene = new Scene(gridPane,Color.BLACK);
         primaryStage.setMinHeight(300);
         primaryStage.setMinWidth(700);
 		primaryStage.setTitle("Login");
