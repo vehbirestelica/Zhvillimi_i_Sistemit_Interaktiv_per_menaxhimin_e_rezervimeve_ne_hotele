@@ -72,13 +72,13 @@ public class exp extends Application {
         pane.setPadding(new Insets(10,0,0,0));
 
         Button btnNew = new Button("New");
-        Button btnPause = new Button("Pause");
-        Button btnQuit = new Button("Quit");
-        CheckBox chkSound = new CheckBox("Sound");
-        CheckBox chkMusic = new CheckBox("Music");
-        RadioButton rdoEasy = new RadioButton("Easy");
-        RadioButton rdoMedium = new RadioButton("Medium");
-        RadioButton rdoHard = new RadioButton("Hard");
+        Button btnPause = new Button("Home");
+        Button btnQuit = new Button("Main");
+        CheckBox chkSound = new CheckBox("Item");
+        CheckBox chkMusic = new CheckBox("Item1");
+        RadioButton rdoEasy = new RadioButton("Select");
+        RadioButton rdoMedium = new RadioButton("Select1");
+        RadioButton rdoHard = new RadioButton("Select2");
         ToggleGroup groupDifficulty = new ToggleGroup();
         groupDifficulty.getToggles().addAll(
                 rdoEasy,
