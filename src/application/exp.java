@@ -1,6 +1,7 @@
 package application;
 
 import javafx.application.Application;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -39,9 +40,11 @@ import javafx.scene.input.KeyCharacterCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.Mnemonic;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -59,7 +62,8 @@ import java.util.ResourceBundle;
 
 
 public class exp extends Application {
-	
+	   private CopyTask copyTask;
+
  String user = "JavaFX2";
  String pw = "password";
  String checkUser, checkPw;
@@ -73,7 +77,67 @@ public class exp extends Application {
         primaryStage.setTitle("JavaFX Please Login");
         //progress bar
         
+        FlowPane root = new FlowPane();
+        root.setPadding(new Insets(10));
+        root.setHgap(10);
+        final Label label = new Label("Copy files:");
+        final ProgressBar progressBar = new ProgressBar(0);
+        final ProgressIndicator progressIndicator = new ProgressIndicator(0);
+  
+        final Button startButton = new Button("Start");
+  
+        final Label statusLabel = new Label();
+        statusLabel.setMinWidth(250);
+        statusLabel.setTextFill(Color.BLUE);
+  
+        // Start Button.
+        startButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                startButton.setDisable(true);
+                progressBar.setProgress(0);
+                progressIndicator.setProgress(0);
+  
+                // Create a Task.
+                copyTask = new CopyTask();
+  
+                // Unbind progress property
+                progressBar.progressProperty().unbind();
+  
+                // Bind progress property
+                progressBar.progressProperty().bind(copyTask.progressProperty());
+  
+              
+                progressIndicator.progressProperty().unbind();
+  
+                // Bind progress property.
+                progressIndicator.progressProperty().bind(copyTask.progressProperty());
+  
+                // Unbind text property for Label.
+                statusLabel.textProperty().unbind();
+  
+                // Bind the text property of Label
+                 // with message property of Task
+                statusLabel.textProperty().bind(copyTask.messageProperty());
+  
+                // When completed tasks
+                
+
+  
+                // Start the Task.
+                new Thread(copyTask).start();
+                
+  
+            }
+        });
+  
+        // Cancel
         
+  
+       
+  
+        root.getChildren().addAll(label, progressBar, progressIndicator, //
+                statusLabel, startButton);
         
         //control with keyboard
         Button btn = new Button("Mnemonic");
@@ -267,7 +331,27 @@ public class exp extends Application {
                     showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Form Error!", "Please enter your email id");
                     return;
                 }
-               
+              
+                copyTask.addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED, //
+                        new EventHandler<WorkerStateEvent>() {
+  
+                            @Override
+                            public void handle(WorkerStateEvent t) {
+                         	   
+                            	Stage menuStage = new Stage();
+                            	reservation menu = new reservation();
+                            	try {
+                					menu.start(menuStage);
+                				} catch (Exception e) {
+                					// TODO Auto-generated catch block
+                					e.printStackTrace();
+                				}
+                            	menuStage.show();
+                            }
+
+                            
+                        });
+                
                 showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Registration Successful!", "Welcome " + lblUserName.getText());
                 Stage menuStage = new Stage();
             	reservation menu = new reservation();
@@ -377,6 +461,8 @@ public class exp extends Application {
         bp.setCenter(gridPane);  
         bp.setLeft(hb);
         bp.setBottom(pane);
+        bp.setRight(root);
+        
       
          
         //Adding BorderPane to the scene and loading CSS
